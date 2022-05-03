@@ -6,6 +6,7 @@ from flask import redirect
 from flask import session
 from flask import make_response
 from flask import abort
+from flask import jsonify
 
 from flask_login import LoginManager
 from flask_login import login_user
@@ -236,6 +237,33 @@ def search():
 
     return render_template('search.html', books=results)
 
+
+@app.route('/api/get_books')
+def get_books():
+    db_sess = db_session.create_session()
+    books = db_sess.query(Book).all()
+
+    data = {'books_amount': len(books), 'books': []}
+    for book in books:
+        book_info = {'title': book.title, 'author': book.author, 'created_date': book.created_date}
+        data['books'].append(book_info)
+
+    return jsonify(data)
+
+
+@app.route('/api/get_book_content/<id>', methods=['POST'])
+def get_book_content(id):
+    data = dict(request.form)
+    print(data)
+    db_sess = db_session.create_session()
+        
+    selected_user = db_sess.query(User).filter(User.email == data['login'] or User.name == data['login']).first()
+    if not(selected_user.check_password(data['password'])):
+        return abort(403)
+
+    book = db_sess.query(Book).filter(Book.id == id).first()
+
+    return jsonify({'content': book.content})
 
 db_session.global_init("db/db.db")
 
