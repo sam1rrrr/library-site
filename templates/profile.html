@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="width: 500px; margin: 0 auto; font-size: 20px;">
+        <h2>Ваш профиль</h2>
+        <p>Имя пользователя: <b>{{current_user.name}}</b></p>
+        <p>Email: <b>{{current_user.email}}</b></p>
+        <p>Дата создания профиля: <b>{{current_user.created_date}}</b></p>
+
+        {% if current_user.is_admin %}
+            <p>Ваш статус: <b>администратор</b></p>
+        {% else %}
+            <p>Ваш статус: <b>пользователь</b></p>
+        {% endif %}
+
+        <a style="color: white;" href="{{url_for('change_password')}}"><button type="button" class="btn btn-outline-primary me-2">Изменить пароль</button></a>
+    </div>
+{% endblock %}

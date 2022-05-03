@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="width: 800px;margin: 0 auto;">
+        {% if current_user.is_authenticated %}
+            {% if current_user.is_admin %}
+                <a style="color: white;" href="/delete_book/{{book.id}}"><button type="button" class="btn btn-outline-primary me-2">Удалить</button></a>
+                <a style="color: white;" href="/edit_book/{{book.id}}"><button type="button" class="btn btn-primary">Редактировать</button></a>
+                {% endif %}
+        {% endif%}
+
+        <h1>{{book.title}}</h1>
+        <h2>Автор: {{book.author}}</h2>
+        <h5>Опубликовано: {{book.created_date}}</h5>
+        <br>
+        <p>{{book.content}}</p>
+    </div>
+{% endblock %}

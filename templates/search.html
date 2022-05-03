@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container px-4 py-5" id="hanging-icons">
+    <h2 class="pb-2 border-bottom">Результаты поиска</h2>
+
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        {% for book in books %}
+       <div class="col d-flex align-items-start">
+        <div>
+            <h2>{{book.title}}</h2>
+            <p>Автор: {{book.author}}</p>
+            {% if current_user.is_authenticated %}
+                <a href="/book/{{book.id}}" class="btn btn-primary">Читать</a>
+            {% else %}
+                <a class="btn btn-primary" onclick="alert('Авторизуйтесь, чтобы читать')">Читать</a>
+            {% endif %}
+        </div>
+        </div>
+        {% endfor %}
+      
+
+    </div>
+  </div>
+{% endblock %}

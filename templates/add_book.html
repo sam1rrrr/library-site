@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form class="login_form" method="post" style="width: 800px; margin: 0 auto">
+    <h1>Добавление книги</h1>
+    <label for="name">Название книги</label>
+    <input type="text" class="form-control" id="name" name="name">
+
+    <label for="author">Автор книги</label>
+    <input type="text" class="form-control" id="author" name="author">
+    
+    <div class="form-group">
+        <label for="content">Текст книги</label>
+        <textarea class="form-control" id="content" rows="7" name="content"></textarea>
+    </div>
+   
+    <button type="submit" class="btn btn-primary">Опубликовать</button>
+</form>
+{% endblock %}
