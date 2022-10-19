@@ -27,6 +27,8 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'MSojJkBfU1VQRVJfU0VDUkVUX0tFWV8jJCUjKCojISYhOTAzMQ=='
 
+db_session.global_init('db.db')
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -265,8 +267,4 @@ def get_book_content(id):
 
     return jsonify({'content': book.content})
 
-db_session.global_init("db/db.db")
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+#db_session.global_init("db/db.db")
